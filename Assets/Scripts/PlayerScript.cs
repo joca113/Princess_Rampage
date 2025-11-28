@@ -74,6 +74,10 @@ public class PlayerScript : MonoBehaviour
 
     private void SetAnimation(float moveInput) 
     {
+
+        if (moveInput != 0)
+        spriteRenderer.flipX = moveInput < 0;
+        
         if (isGrounded)
         {
             if (moveInput == 0)
