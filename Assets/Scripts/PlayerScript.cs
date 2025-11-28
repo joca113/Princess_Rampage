@@ -78,22 +78,22 @@ public class PlayerScript : MonoBehaviour
         {
             if (moveInput == 0)
             {
-                animator.Play("Player_idle");
+                animator.Play("PrincessIdle");
             }
             else
             {
-                animator.Play("Player_Run");
+                animator.Play("PrincessRight");
             }
         }
         else
         {
             if (rb.linearVelocity.y > 0)
             {
-                animator.Play("Player_Jump");
+                animator.Play("PrincessJump");
             }
             else
             {
-                animator.Play("Player_Fall");
+                animator.Play("PrincessFall");
             }
         }
     }
