@@ -140,6 +140,10 @@ public class PlayerScript : MonoBehaviour
         {
             TakeDamage();
         }
+        else if (collision.gameObject.tag == "BouncePad")
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 2);
+        }
     }
 
     private IEnumerator BlinkRed()
