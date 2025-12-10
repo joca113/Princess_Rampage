@@ -8,13 +8,22 @@ public class PauseMenu : MonoBehaviour
     public void OnPause(InputAction.CallbackContext context)
     {
 
-        container.SetActive(true);
-        Time.timeScale = 0;
+       if (!context.performed) return;
+
+        bool paused = container.activeSelf;
+
+        container.SetActive(!paused);
+        Time.timeScale = paused ? 1 : 0;
     }
 
     public void ResumeButton()
     {
         container.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void MenuButton()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }
