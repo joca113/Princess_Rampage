@@ -5,6 +5,9 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour
 {
+
+    public HeartUI heartUI;  // reference to UI
+
     public int health = 2;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
@@ -28,6 +31,8 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         extraJumps = extraJumpsValue;
+
+        heartUI.UpdateHearts(health);   // initialize UI
     }
 
     // Update is called once per frame
@@ -74,42 +79,70 @@ public class PlayerScript : MonoBehaviour
 
     private void SetAnimation(float moveInput) 
     {
+
+        if (moveInput != 0)
+        spriteRenderer.flipX = moveInput < 0;
+
         if (isGrounded)
         {
             if (moveInput == 0)
             {
-                animator.Play("Player_idle");
+                animator.Play("PrincessIdle");
             }
             else
             {
-                animator.Play("Player_Run");
+                animator.Play("PrincessRight");
             }
         }
         else
         {
             if (rb.linearVelocity.y > 0)
             {
-                animator.Play("Player_Jump");
+                animator.Play("PrincessJump");
             }
             else
             {
-                animator.Play("Player_Fall");
+                animator.Play("PrincessFall");
             }
         }
     }
 
+    private void TakeDamage()
+    {
+        health--;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        StartCoroutine(BlinkRed());
+
+        heartUI.UpdateHearts(health);
+
+        if (health <= 0)
+            Die();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
+
+            if (rb.linearVelocity.y < 0f && transform.position.y > enemy.transform.position.y + 0.2f)
+            {
+                enemy.TakeDamage();
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, enemy.stompBounceForce); // bounce upward
+            }
+            else
+            {
+                TakeDamage();
+            }
+        }
+
         if (collision.gameObject.tag == "Damage")
         {
-            health--;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            StartCoroutine(BlinkRed());
-
-            if (health <= 0)
-            {
-                Die();
-            }
+            TakeDamage();
+        }
+        else if (collision.gameObject.tag == "BouncePad")
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 2);
         }
     }
 

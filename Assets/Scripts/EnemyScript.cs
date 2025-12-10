@@ -1,7 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyScript : MonoBehaviour
 {
+
+    public int health = 1;
+    public float stompBounceForce = 12f;
     public float speed = 2f;
     public Transform[] points;
 
@@ -29,5 +33,22 @@ public class EnemyScript : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
 
         spriteRenderer.flipX = (transform.position.x - points[i].position.x) < 0f;
+    }
+
+    public void TakeDamage()
+    {
+        health--;
+        StartCoroutine(BlinkRed());
+        if (health <= 0)
+        {
+            Destroy(gameObject); 
+        }
+    }
+
+    private IEnumerator BlinkRed()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = Color.white;
     }
 }
