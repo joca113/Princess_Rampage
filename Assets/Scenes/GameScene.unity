@@ -2272,7 +2272,7 @@ MonoBehaviour:
   colisaoAudio: {fileID: 8300000, guid: 07f3205dcbf58d44b808783fc2bf6343, type: 3}
   gameOverAudio: {fileID: 8300000, guid: 2739506d1ab084f49b49413dfaaa2b40, type: 3}
   longJumpAudio: {fileID: 8300000, guid: 6773694318a468c4da5c8aa5e6932ffc, type: 3}
-  enemyDeathAudio: {fileID: 8300000, guid: a6a142e1abcffa14e9ee8445ce77ac07, type: 3}
+  enemyDeathAudio02: {fileID: 8300000, guid: 0838f62398307a6459ea3c25a186b481, type: 3}
 --- !u!50 &699695088
 Rigidbody2D:
   serializedVersion: 5
@@ -2616,7 +2616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &725501066
 RectTransform:
   m_ObjectHideFlags: 0

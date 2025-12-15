@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     public AudioClip colisaoAudio;
     public AudioClip gameOverAudio;
     public AudioClip longJumpAudio;
-    public AudioClip enemyDeathAudio;
+    public AudioClip enemyDeathAudio02;
 
 private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,12 +74,12 @@ private AudioSource audioSource;
         if (isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            audioSource.PlayOneShot(puloAudio, 0.7f);
+            audioSource.PlayOneShot(puloAudio, 1f);
         }
         else if (extraJumps > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            audioSource.PlayOneShot(puloAudio);
+            audioSource.PlayOneShot(puloAudio, 1f);
             extraJumps--;
         }
     }
@@ -130,7 +130,7 @@ private AudioSource audioSource;
         if (health <= 0)
             Die();
         else
-            audioSource.PlayOneShot(colisaoAudio);
+            audioSource.PlayOneShot(colisaoAudio, 0.25f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -143,7 +143,7 @@ private AudioSource audioSource;
             {
                 enemy.TakeDamage();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, enemy.stompBounceForce); // bounce upward
-                audioSource.PlayOneShot(enemyDeathAudio);
+                audioSource.PlayOneShot(enemyDeathAudio02, 0.96f);
             }
             else
             {
@@ -158,7 +158,7 @@ private AudioSource audioSource;
         else if (collision.gameObject.tag == "BouncePad")
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 2);
-            audioSource.PlayOneShot(longJumpAudio);
+            audioSource.PlayOneShot(longJumpAudio, 0.80f);
         }
     }
 
@@ -171,7 +171,7 @@ private AudioSource audioSource;
 
     private void Die()
     {
-        audioSource.PlayOneShot(gameOverAudio);
+        audioSource.PlayOneShot(gameOverAudio, 0.3f);
         StartCoroutine(RestartScene());
     }
 
