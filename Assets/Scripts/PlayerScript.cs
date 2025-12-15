@@ -55,7 +55,7 @@ private AudioSource audioSource;
             extraJumps = extraJumpsValue;
         }
 
-        if (rb.position.y < -20)
+        if (rb.position.y < -10)
         {
             Die();
         }
@@ -177,7 +177,7 @@ private AudioSource audioSource;
 
     private IEnumerator RestartScene()
 {
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.1f);
     UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 }
 
