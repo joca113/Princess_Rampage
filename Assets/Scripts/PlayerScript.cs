@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -24,9 +24,19 @@ public class PlayerScript : MonoBehaviour
 
     public int extraJumpsValue = 1;
     public int extraJumps;
+
+    [Header("Audio")]
+    public AudioClip puloAudio;
+    public AudioClip colisaoAudio;
+    public AudioClip gameOverAudio;
+    public AudioClip longJumpAudio;
+    public AudioClip enemyDeathAudio02;
+
+private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -64,10 +74,12 @@ public class PlayerScript : MonoBehaviour
         if (isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            audioSource.PlayOneShot(puloAudio, 1f);
         }
         else if (extraJumps > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            audioSource.PlayOneShot(puloAudio, 1f);
             extraJumps--;
         }
     }
@@ -117,6 +129,8 @@ public class PlayerScript : MonoBehaviour
 
         if (health <= 0)
             Die();
+        else
+            audioSource.PlayOneShot(colisaoAudio, 0.25f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -129,6 +143,7 @@ public class PlayerScript : MonoBehaviour
             {
                 enemy.TakeDamage();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, enemy.stompBounceForce); // bounce upward
+                audioSource.PlayOneShot(enemyDeathAudio02, 0.96f);
             }
             else
             {
@@ -143,6 +158,7 @@ public class PlayerScript : MonoBehaviour
         else if (collision.gameObject.tag == "BouncePad")
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 2);
+            audioSource.PlayOneShot(longJumpAudio, 0.80f);
         }
     }
 
@@ -155,7 +171,14 @@ public class PlayerScript : MonoBehaviour
 
     private void Die()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        audioSource.PlayOneShot(gameOverAudio, 0.3f);
+        StartCoroutine(RestartScene());
     }
+
+    private IEnumerator RestartScene()
+{
+    yield return new WaitForSeconds(1f);
+    UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+}
 
 }
