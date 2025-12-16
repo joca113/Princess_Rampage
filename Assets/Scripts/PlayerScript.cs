@@ -91,7 +91,7 @@ private AudioSource audioSource;
             extraJumps = extraJumpsValue;
         }
 
-        if (rb.position.y < -10)
+        if (rb.position.y < -7)
         {
             Die();
         }
