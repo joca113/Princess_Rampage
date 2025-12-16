@@ -20,7 +20,7 @@ public class HeartItemScript : MonoBehaviour
             PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
             audioSource.PlayOneShot(heartAudio, 0.9f);
             if (player.health < 3 && player.health > 0) player.health+=1;
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, 0.2f);
             heartUI.UpdateHearts(player.health);
         }
     }

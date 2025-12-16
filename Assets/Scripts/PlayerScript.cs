@@ -43,6 +43,10 @@ public class PlayerScript : MonoBehaviour
     public AudioClip longJumpAudio;
     public AudioClip enemyDeathAudio02;
 
+    [Header("UI")]
+    [SerializeField] private GameObject grapplePromptUI;
+
+
 private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -102,6 +106,13 @@ private AudioSource audioSource;
         {
             rope.SetPosition(0, transform.position);
             rope.SetPosition(1, grappleJoint.connectedAnchor);
+        }
+
+        if (grapplePromptUI != null)
+        {
+            bool shouldShow = !isGrappling && IsGrappleTargetInRange();
+            if (grapplePromptUI.activeSelf != shouldShow)
+                grapplePromptUI.SetActive(shouldShow);
         }
     }
 
@@ -305,4 +316,30 @@ private AudioSource audioSource;
         grappleJoint.enabled = false;
         rope.enabled = false;
     }
+
+    private bool IsGrappleTargetInRange()
+    {
+        if (grappleTilemap == null) return false;
+
+        Vector3Int playerCell = grappleTilemap.WorldToCell(transform.position);
+        int searchRadius = Mathf.CeilToInt(grappleMaxDistance);
+
+        for (int x = -searchRadius; x <= searchRadius; x++)
+        {
+            for (int y = -searchRadius; y <= searchRadius; y++)
+            {
+                Vector3Int cell = playerCell + new Vector3Int(x, y, 0);
+                TileBase tile = grappleTilemap.GetTile(cell);
+                if (tile == null) continue;
+
+                Vector2 worldPos = grappleTilemap.GetCellCenterWorld(cell);
+                float dist = Vector2.Distance(transform.position, worldPos);
+
+                if (dist <= grappleMaxDistance)
+                    return true;
+            }
+        }
+        return false;
+    }
+
 }
