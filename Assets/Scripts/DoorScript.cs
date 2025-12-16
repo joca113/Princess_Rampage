@@ -1,41 +1,49 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using System.Threading;
+using Unity.VisualScripting;
 
 public class DoorScript : MonoBehaviour
 {
     public GameObject container;
     private Animator animator;
-    [SerializeField] private TMP_Text timerText;
+
     [SerializeField] private TMP_Text finalTime;
-    private void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] private TMP_Text bestTime;
 
+    private LevelTimer levelTimer;
+
+    void Start()
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            animator.Play("Door_end");
-            StartCoroutine(EndPhase());
-        }
+        animator = GetComponent<Animator>();
+        levelTimer = FindFirstObjectByType<LevelTimer>();
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
+
+        animator.Play("Door_end");
+        StartCoroutine(EndPhase());
     }
 
     IEnumerator EndPhase()
     {
         yield return new WaitForSeconds(1f);
+
+        levelTimer.StopAndSaveBestTime();
+
         Time.timeScale = 0;
         container.SetActive(true);
-        finalTime.text = $"You completed the level in {timerText.text} minutes.";
-        timerText.gameObject.SetActive(false);
+        
+        finalTime.text = $"You completed the level in {levelTimer.GetFormattedCurrentTime()}";
+        bestTime.text = $"Best time: {levelTimer.GetFormattedBestTime()}";
+        levelTimer.gameObject.SetActive(false);
     }
 
     public void MenuButton()
     {
+        Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
-
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-    } 
 }
