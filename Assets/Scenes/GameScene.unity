@@ -2332,7 +2332,19 @@ MonoBehaviour:
     m_ActionId: 6b7528cf-f5e1-4ccd-bbdd-3a4d94155782
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 699695087}
+        m_TargetAssemblyTypeName: PlayerScript, Assembly-CSharp
+        m_MethodName: Grapple
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2d372d44-08cf-43f8-b5b8-7f57ac320801
     m_ActionName: 'Player/Grapple[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 1
@@ -2356,6 +2368,8 @@ MonoBehaviour:
   health: 3
   moveSpeed: 5
   jumpForce: 10
+  airAcceleration: 20
+  maxAirSpeed: 5
   groundCheck: {fileID: 177837150}
   groundCheckRadius: 0.2
   groundLayer:
@@ -2364,6 +2378,8 @@ MonoBehaviour:
   rb: {fileID: 699695088}
   extraJumpsValue: 1
   extraJumps: 0
+  grappleTilemap: {fileID: 1629818669}
+  grappleMaxDistance: 6
   puloAudio: {fileID: 8300000, guid: 2dbbde5369255e641b6aeda5a87c5ac8, type: 3}
   colisaoAudio: {fileID: 8300000, guid: 07f3205dcbf58d44b808783fc2bf6343, type: 3}
   gameOverAudio: {fileID: 8300000, guid: 2739506d1ab084f49b49413dfaaa2b40, type: 3}
@@ -4826,17 +4842,51 @@ Tilemap:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629818666}
   m_Enabled: 1
-  m_Tiles: {}
+  m_Tiles:
+  - first: {x: 4, y: 10, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: e8916183eb590c94e8bd699c266f8afb, type: 2}
+  m_TileSpriteArray:
+  - m_RefCount: 1
+    m_Data: {fileID: 6582046967323461550, guid: 274d64617113287499ed1c4165d1d8f3, type: 3}
+  m_TileMatrixArray:
+  - m_RefCount: 1
+    m_Data:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+  m_TileColorArray:
+  - m_RefCount: 1
+    m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Size: {x: 5, y: 11, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
