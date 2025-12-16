@@ -12,7 +12,7 @@ public class LevelTimer : MonoBehaviour
     {
         if (!running) return;
 
-        elapsed += Time.deltaTime; // counts game time (stops if timeScale = 0)
+        elapsed += Time.deltaTime;
         UpdateUI();
     }
 
