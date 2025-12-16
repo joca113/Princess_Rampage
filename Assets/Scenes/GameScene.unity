@@ -869,6 +869,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 062e3fac3e6c9354aaa066dd1e9dbc21, type: 2}
   - m_RefCount: 9
     m_Data: {fileID: 11400000, guid: 0165166605e8b814bb5496038586a045, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 2
     m_Data: {fileID: 1982798753367972342, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
@@ -894,6 +896,8 @@ Tilemap:
     m_Data: {fileID: 9148909279685094865, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
   - m_RefCount: 9
     m_Data: {fileID: -2784247815669728694, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 43
     m_Data:
@@ -916,11 +920,13 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 43
     m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 7.1993e-41, g: 7.1993e-41, b: 7.1993e-41, a: 7.1993e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -5, y: -7, z: 0}
-  m_Size: {x: 28, y: 7, z: 1}
+  m_Size: {x: 28, y: 12, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -1983,6 +1989,9 @@ MonoBehaviour:
   rb: {fileID: 699695088}
   extraJumpsValue: 1
   extraJumps: 0
+  tilemap: {fileID: 0}
+  grappleMaxDistance: 6
+  grappleKey: 101
 --- !u!50 &699695088
 Rigidbody2D:
   serializedVersion: 5
