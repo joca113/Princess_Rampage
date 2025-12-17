@@ -13,8 +13,14 @@ public class DoorScript : MonoBehaviour
 
     private LevelTimer levelTimer;
 
+    [Header("Audio")]
+    public AudioClip winOption02;
+
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         levelTimer = FindFirstObjectByType<LevelTimer>();
     }
@@ -22,9 +28,15 @@ public class DoorScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
+        StartCoroutine(DoorOpenSequence());
+    }
 
+    IEnumerator DoorOpenSequence()
+    {
+        audioSource.PlayOneShot(winOption02, 0.5f);
+        yield return new WaitForSeconds(1.35f);
         animator.Play("Door_end");
-        StartCoroutine(EndPhase());
+        yield return StartCoroutine(EndPhase());
     }
 
     IEnumerator EndPhase()
